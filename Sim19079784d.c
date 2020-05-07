@@ -45,13 +45,13 @@ int main(int argc,char *argv[])
     fp=fopen(argv[1],"r");
     while(fgets(temp, 255, fp))
     {
-        ltrim(temp); //删除temp前的空格
+        ltrim(temp); 
     
         if(temp[0]=='L'){
            if(dest[temp[1]-'0']==0)
               dest[temp[1]-'0']=count;
            del_tag(temp);
-        }//如果temp以L开头，删去 Ln：这个标识
+        }
         
         int tempLength = strlen(temp);
         char *tempCopy = (char*) calloc(tempLength+1,sizeof(char));
@@ -211,7 +211,7 @@ void rmmovq(char *operand1,char *operand2){
 }
 
 void mrmovq(char *operand1,char *operand2){
-    reg[operand2[2]-'0']-=mem[find_address(operand1)];
+    reg[operand2[2]-'0']=mem[find_address(operand1)];
 }
 
 double return_int(char *operand)
