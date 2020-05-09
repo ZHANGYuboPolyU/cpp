@@ -35,8 +35,7 @@ int main(int argc,char *argv[])
     while (fgets(temp,255,fp))
     {
         if(temp[0]=='L'){
-           if(dest[temp[1]-'0']==0)
-              dest[temp[1]-'0']=count;
+        	dest[temp[1]-'0']=count;
         }
         count++;
     }
@@ -48,8 +47,6 @@ int main(int argc,char *argv[])
         ltrim(temp); 
     
         if(temp[0]=='L'){
-           if(dest[temp[1]-'0']==0)
-              dest[temp[1]-'0']=count;
            del_tag(temp);
         }
         
