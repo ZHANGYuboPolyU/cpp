@@ -10,7 +10,7 @@ int main() {
 
   N=300;
   auto start = std::chrono::steady_clock::now();
-  if(N<3)
+  if(N>3)
   {
     for(int i=0;i<N;i++)
     {
@@ -50,8 +50,7 @@ int main() {
     for(int i=0;i<N;i++)
       sum+=A[i/3+2];
     for(int i=0;i<N;i++)
-      sum+=A[i/3+1
-      ];
+      sum+=A[i/3+1];
   }
   auto end = std::chrono::steady_clock::now();
   std::chrono::duration<double> elapsed_seconds = std::chrono::duration<double>(end-start);
