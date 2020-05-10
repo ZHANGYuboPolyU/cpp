@@ -6,7 +6,6 @@ using namespace std;
 
 string A_code[]={"A1","A2","A3"};
 string A_name[]={"Cheese veggie sandwich","Salmon & cheese sandwich","Chicken Caesar Sandwich"};
-int A_price[]={30,34,32};
 
 string B_code[]={"B1","B2","B3"};
 string B_name[]={"(Quebec homemade) Quiche","Bagel with Cream Cheese","(East Village Chicken) Pie"};

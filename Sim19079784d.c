@@ -5,8 +5,8 @@
 
 int reg[8]={0};
 int mem[16]={0};
-int equal=0,less=0;
-int dest[10]={0};
+int equal=0,less=0;//condition code
+int dest[10]={0};  //jump destination
 FILE *fp;
 
 void addq(char *operand1,char *operand2);
@@ -20,11 +20,11 @@ void rrmovq(char *operand1,char *operand2);
 void irmovq(char *operand1,char *operand2);
 void rmmovq(char *operand1,char *operand2);
 void mrmovq(char *operand1,char *operand2);
-double return_int(char *operand);
-int find_address(char *operand);
-char *ltrim(char *str);
-char *del_tag(char *str);
-char *format(char *str,char *instruction,char *operand1, char *operand2);
+double return_int(char *operand);  //change the read characters to integers
+int find_address(char *operand);   //find the memory address
+char *ltrim(char *str);            //delete the spaces at the beginning
+char *del_tag(char *str);          //delete L tag at the beginning of instruction
+char *format(char *str,char *instruction,char *operand1, char *operand2);  //assign instruction, operand1, operand2
 
 int main(int argc,char *argv[]) 
 {  
@@ -32,7 +32,7 @@ int main(int argc,char *argv[])
     char instruction[256]="",operand1[256]="",operand2[256]="";
     int count=0;
     fp=fopen(argv[1],"r");
-    while (fgets(temp,255,fp))
+    while (fgets(temp,255,fp))  //record each tag's position
     {
         if(temp[0]=='L'){
            if(dest[temp[1]-'0']==0)
@@ -45,13 +45,13 @@ int main(int argc,char *argv[])
     fp=fopen(argv[1],"r");
     while(fgets(temp, 255, fp))
     {
-        ltrim(temp); //删除temp前的空格
+        ltrim(temp); //delete the spaces before the instruction
     
         if(temp[0]=='L'){
            if(dest[temp[1]-'0']==0)
               dest[temp[1]-'0']=count;
            del_tag(temp);
-        }//如果temp以L开头，删去 Ln：这个标识
+        }//if temp begin with Ln，the delete the tag
         
         int tempLength = strlen(temp);
         char *tempCopy = (char*) calloc(tempLength+1,sizeof(char));
@@ -71,9 +71,7 @@ int main(int argc,char *argv[])
         if(strcmp(instruction, "rrmovq")==0) rrmovq(operand1,operand2);
         if(strcmp(instruction, "irmovq")==0) irmovq(operand1,operand2);
         if(strcmp(instruction, "rmmovq")==0) rmmovq(operand1,operand2);
-        if(strcmp(instruction, "mrmovq")==0) mrmovq(operand1,operand2);
-
-        
+        if(strcmp(instruction, "mrmovq")==0) mrmovq(operand1,operand2);       
 
         count++;
     } 
@@ -211,7 +209,7 @@ void rmmovq(char *operand1,char *operand2){
 }
 
 void mrmovq(char *operand1,char *operand2){
-    reg[operand2[2]-'0']-=mem[find_address(operand1)];
+    reg[operand2[2]-'0']=mem[find_address(operand1)];
 }
 
 double return_int(char *operand)
