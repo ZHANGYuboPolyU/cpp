@@ -307,6 +307,7 @@ int main()
     Start_system:    
     init(count);
     S5="";
+    price=0;
 
     cout<<"Please enter system command"<<endl;
     cout<<"     0: Exit the System"<<endl;
