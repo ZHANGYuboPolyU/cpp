@@ -1,7 +1,32 @@
 /*
-ZHANG Yubo 19079784d
-Assignment2 Tic-Tac-Toe
-Github: https://github.com/ZHANGYuboPolyU/cpp/blob/master/assignment2.cpp
+ *                        _oo0oo_
+ *                       o8888888o
+ *                       88" . "88
+ *                       (| -_- |)
+ *                       0\  =  /0
+ *                     ___/`---'\___
+ *                   .' \\|     |// '.
+ *                  / \\|||  :  |||// \
+ *                 / _||||| -:- |||||- \
+ *                |   | \\\  - /// |   |
+ *                | \_|  ''\---/''  |_/ |
+ *                \  .-\__  '-'  ___/-. /
+ *              ___'. .'  /--.--\  `. .'___
+ *           ."" '<  `.___\_<|>_/___.' >' "".
+ *          | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+ *          \  \ `_.   \_ __\ /__ _/   .-` /  /
+ *      =====`-.____`.___ \_____/___.-`___.-'=====
+ *                        `=---='
+ * 
+ * 
+ *      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * 
+ *            Buddha bless       No BUG
+ *
+ *
+ *   ZHANG Yubo 19079784d
+ *   Assignment2 Tic-Tac-Toe
+ *   Github: https://github.com/ZHANGYuboPolyU/cpp/blob/master/assignment2.cpph
 */
 #include <iostream>
 #include <string>
@@ -17,13 +42,13 @@ string winner=" ";
 void welcome() //print welcome message and instruction on how to play this game.
 {
     //Welcome message
-    cout<<"*******************Welcome to this game!*****************"<<endl; 
-    cout<<"  _______ _          _______             _______"<<endl;       
-    cout<<" |__   __(_)        |__   __|           |__   __|"<<endl;        
-    cout<<"    | |   _  ___ ______| | __ _  ___ ______| | ___   ___ "<<endl;
-    cout<<"    | |  | |/ __|______| |/ _` |/ __|______| |/ _ \\ / _ \\"<<endl;
-    cout<<"    | |  | | (__       | | (_| | (__       | | (_) |  __/"<<endl;
-    cout<<"    |_|  |_|\\___|      |_|\\__,_|\\___|      |_|\\___/ \\___|"<<endl;
+    cout<<
+        "████████╗██╗ ██████╗              ████████╗ █████╗  ██████╗              ████████╗ ██████╗ ███████╗\n"
+        "╚══██╔══╝██║██╔════╝              ╚══██╔══╝██╔══██╗██╔════╝              ╚══██╔══╝██╔═══██╗██╔════╝\n"
+        "   ██║   ██║██║         █████╗       ██║   ███████║██║         █████╗       ██║   ██║   ██║█████╗  \n"
+        "   ██║   ██║██║         ╚════╝       ██║   ██╔══██║██║         ╚════╝       ██║   ██║   ██║██╔══╝  \n"
+        "   ██║   ██║╚██████╗                 ██║   ██║  ██║╚██████╗                 ██║   ╚██████╔╝███████╗\n"
+        "   ╚═╝   ╚═╝ ╚═════╝                 ╚═╝   ╚═╝  ╚═╝ ╚═════╝                 ╚═╝    ╚═════╝ ╚══════╝\n";
                                                                                                                 
     cout<<"Instructions: Tic-tac-toe is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid.\n"<<
     "The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner."<<endl<<endl;
@@ -40,7 +65,7 @@ bool isWin();  //check whether there is a player win
 void refreshBoard(int step,char chess,int mode);  //process of putting a chess into the cell and update board
 void h2h();  //human vs human
 void h2c();  //human vs computer
-int minimax(char flag);  //Minimax is a decision rule used in artificial intelligence, decision theory, game theory, statistics, and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. 
+int minimax(char flag);  //Minimax (sometimes MinMax, MM[1] or saddle point[2]) is a decision rule used in artificial intelligence, decision theory, game theory, statistics, and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. 
 void BubbleSort(int  *p, int * ind_diff);  //bubble sort and return the original index based on the sorted order
 int evaluate(int i,char flag);  //evaluate the best cell choice for computer
 
