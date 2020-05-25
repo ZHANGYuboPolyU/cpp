@@ -65,7 +65,7 @@ bool isWin();  //check whether there is a player win
 void refreshBoard(int step,char chess,int mode);  //process of putting a chess into the cell and update board
 void h2h();  //human vs human
 void h2c();  //human vs computer
-int minimax(char flag);  //Minimax (sometimes MinMax, MM[1] or saddle point[2]) is a decision rule used in artificial intelligence, decision theory, game theory, statistics, and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. 
+int minimax(char flag);  //Minimax is a decision rule used in artificial intelligence, decision theory, game theory, statistics, and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. 
 void BubbleSort(int  *p, int * ind_diff);  //bubble sort and return the original index based on the sorted order
 int evaluate(int i,char flag);  //evaluate the best cell choice for computer
 
