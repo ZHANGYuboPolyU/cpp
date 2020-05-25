@@ -1,3 +1,8 @@
+/*
+ZHANG Yubo 19079784d
+Assignment2 Tic-Tac-Toe
+Github: https://github.com/ZHANGYuboPolyU/cpp/blob/master/assignment2.cpp
+*/
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -9,19 +14,10 @@ char flag,chess;  // 'flag' record the 1st entered chess; 'chess' record every t
 int system_command,game_mode;
 string winner=" ";
 
-bool isOccupied(int num);  //check whether the cell is occupied or not
-bool isWin();  //check whether there is a player win
-void refreshBoard(int step,char chess,int mode);  //process of putting a chess into the cell and update board
-void h2h();  //human vs human
-void h2c();  //human vs computer
-int minimax(char flag);  //Minimax (sometimes MinMax, MM[1] or saddle point[2]) is a decision rule used in artificial intelligence, decision theory, game theory, statistics, and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. 
-void BubbleSort(int  *p, int * ind_diff);  //bubble sort and return the original index based on the sorted order
-int evaluate(int i,char flag);  //evaluate the best cell choice for computer
-
-int main()
+void welcome() //print welcome message and instruction on how to play this game.
 {
     //Welcome message
-    cout<<"******************************************Welcome to this game!*************************************************"<<endl; 
+    cout<<"*******************Welcome to this game!*****************"<<endl; 
     cout<<"  _______ _          _______             _______"<<endl;       
     cout<<" |__   __(_)        |__   __|           |__   __|"<<endl;        
     cout<<"    | |   _  ___ ______| | __ _  ___ ______| | ___   ___ "<<endl;
@@ -29,7 +25,7 @@ int main()
     cout<<"    | |  | | (__       | | (_| | (__       | | (_) |  __/"<<endl;
     cout<<"    |_|  |_|\\___|      |_|\\__,_|\\___|      |_|\\___/ \\___|"<<endl;
                                                                                                                 
-    cout<<"Tic-tac-toe is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid.\n"<<
+    cout<<"Instructions: Tic-tac-toe is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid.\n"<<
     "The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner."<<endl<<endl;
 
 	cout<<"Here is what the game board looks like the the IDs of each cell:"<<endl;
@@ -38,12 +34,26 @@ int main()
     cout<<" "<<board[3]<<"| "<<board[4]<<" |"<<board[5]<<endl;
     cout<<"---------"<<endl;
     cout<<" "<<board[6]<<"| "<<board[7]<<" |"<<board[8]<<endl<<endl;
+}
+bool isOccupied(int num);  //check whether the cell is occupied or not
+bool isWin();  //check whether there is a player win
+void refreshBoard(int step,char chess,int mode);  //process of putting a chess into the cell and update board
+void h2h();  //human vs human
+void h2c();  //human vs computer
+int minimax(char flag);  //Minimax is a decision rule used in artificial intelligence, decision theory, game theory, statistics, and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. 
+void BubbleSort(int  *p, int * ind_diff);  //bubble sort and return the original index based on the sorted order
+int evaluate(int i,char flag);  //evaluate the best cell choice for computer
 
+int main()
+{
+    welcome();
     //Choose system command
     Start_game:
     step=1;  //initial step=1
-    winner=" ";  //initial winner is NULL
-	cout<<"Please enter system command (0 for Exit the System and 1 for Begin entering a new game):"<<endl;
+    winner=" ";  //initial winner is " " 
+	cout<<"Please enter system command."<<endl;
+    cout<<"     0: Exit the System"<<endl;
+    cout<<"     1: Begin entering a new game"<<endl;
     cout<<"****************************************************************************************"<<endl;
     cout<<"System command: ";
     cin>>system_command;
@@ -78,11 +88,11 @@ int main()
     if(cin.fail()||(game_mode!=1&&game_mode!=2))
     {
         cin.clear();
-        cin.sync();
+        cin.sync();  //clean the input buffer in case wrong conmand was read again
         cout<<"Invalid input, please try again."<<endl<<endl; 
         goto Choose_mode;   
     }
-    //initial board cell from 1 to 9
+    //initial board cell from 1 to 9 
     for(int i=0;i<9;i++)
     {
         board[i]=i+1+'0';
@@ -92,7 +102,6 @@ int main()
     else h2h();  //human vs human
 
     if(winner==" ")  cout<<"It's Draw!"<<endl<<endl;  
-    else  cout<<"Winner is: "<<winner<<endl<<endl;
 
     cout<<"---New Game---"<<endl;
     goto Start_game;  //Start game again.
@@ -104,6 +113,7 @@ void h2h()
     char flag=rand()%2==0?'O':'X';  //generate 1st player's chess randomly'
     cout<<"The game system has randomly thrown a virtual dice."<<endl;
     cout<<"The Player1 is: "<<flag<<endl;
+    cout<<"This is the Player1's turn."<<endl;
 
 	chess=flag;  // For 1st time, 'flag' should = 'chess'
 	refreshBoard(step,chess,game_mode);
@@ -111,9 +121,9 @@ void h2h()
     
 	for(step;step<=9;step++)
     {
-    	Check1: if(step%2==1)  //The condition that should enter the same chess with 'flag'
+    	Check1: if(step%2==1)  //Player1's turn
     	{
-    		cout<<"This is the Player1's turn. Please enter "<<flag<<": ";
+    		cout<<"Game continues, this is the Player1's turn. Please enter "<<flag<<": ";
             cin>>chess;
             chess=toupper(chess);  //both upper and lower case are accepted
 
@@ -122,11 +132,15 @@ void h2h()
     			goto Check1;
 			}//if users enter wrongly, then enter again.
     	    refreshBoard(step,chess,game_mode);
-            if(winner==" "&&isWin()) winner="Player1";  
+            if(winner==" "&&isWin()) {
+                winner="Player1";
+                cout<<"Player1 Wins!"<<endl;
+                break;
+            }
     	}
-    	Check2: if(step%2==0)  //The condition that should enter different chess from 'flag'
+    	Check2: if(step%2==0)  //Player2's turn
     	{
-    		cout<<"This is the Player2's turn. Please enter "<<(flag=='O'?"X":"O")<<": ";//This trinocular operation gives an answer different from 'flag'
+    		cout<<"Game continues, this is the Player2's turn. Please enter "<<(flag=='O'?"X":"O")<<": ";//This trinocular operation gives an answer different from 'flag'
             cin>>chess;
             chess=toupper(chess);
     		if(chess!=(flag=='O'?'X':'O')){
@@ -134,7 +148,11 @@ void h2h()
     			goto Check2;//if users enter wrongly, then enter again.
 			}
             refreshBoard(step,chess,game_mode);
-            if(winner==" "&&isWin()) winner="Player2";
+            if(winner==" "&&isWin()) {
+                winner="Player2";
+                cout<<"Player2 Wins!"<<endl;
+                break;
+            }
 	    }
     }
     cout<<"The end."<<endl;
@@ -154,17 +172,21 @@ void h2c()
     
 	for(step;step<=9;step++)
     {
-    	Check1: if(step%2==1)  //The condition that should enter the same chess with 'flag'
+    	Check1: if(step%2==1)  //computer's turn
     	{
-    		cout<<"This is the Computer's turn. "<<endl;
-            _sleep(1*1000);  // Give 1 seconds for user to react
+    		cout<<"Game continues, this is the Computer's turn. "<<endl;
+            _sleep(1*1000);  // Give 1 second for user to react
             chess=flag;
     	    refreshBoard(step,chess,game_mode);
-            if(winner==" "&&isWin()) winner="Computer";
+            if(winner==" "&&isWin()) {  //
+                winner="Computer";
+                cout<<"Computer Wins! Game Over"<<endl;
+                break;
+            }
     	}
-    	Check2: if(step%2==0)//The condition that should enter different chess from 'flag'
+    	Check2: if(step%2==0)//human player's tern
     	{
-    		cout<<"This is your turn. Please enter "<<(flag=='O'?"X":"O")<<": ";  //This trinocular operation gives an answer different from 'flag'
+    		cout<<"Game continues, this is your turn. Please enter "<<(flag=='O'?"X":"O")<<": ";  //This trinocular operation gives an answer different from 'flag'
             cin>>chess;
             chess=toupper(chess);
     		if(chess!=(flag=='O'?'X':'O')){
@@ -172,7 +194,11 @@ void h2c()
     			goto Check2;  //if users enter wrongly, then enter again.
 			}
             refreshBoard(step,chess,game_mode);
-            if(winner==" "&&isWin()) winner="You!!!";
+            if(winner==" "&&isWin()) {
+                winner="You";
+                cout<<"You win!!!"<<endl;
+                break;
+            }
 	    }
     }
     cout<<"The end."<<endl;
@@ -210,9 +236,11 @@ void refreshBoard(int step,char chess,int mode)
     cout<<"---------"<<endl;
     cout<<" "<<board[6]<<"| "<<board[7]<<" |"<<board[8]<<endl;
 
-    if(step%2==1&&mode==1) cout<<"Computer has chosen cell "<<num<<endl;   //For computer
-    cout<<"This is step "<<step<<", there are "<<9-step<<" more steps."<<endl;
-    cout<<"*************************************************"<<endl<<endl;
+    if(step%2==1&&mode==1) cout<<"(Computer has chosen cell "<<num<<")"<<endl;   //For computer
+    if(!isWin()){
+        cout<<"This is step "<<step<<", there are "<<9-step<<" more steps."<<endl;
+        cout<<"*************************************************"<<endl<<endl;
+    }
 }
 
 bool isOccupied(int num)
@@ -247,25 +275,25 @@ int minimax(char flag)
        if(!isOccupied(i+1)&&board[i]!=flag)  
        {
            original_chess=board[i];
-           board[i]=(flag=='O'?'X':'O');
+           board[i]=(flag=='O'?'X':'O');  //fill ith cell with human player's chess
            if(isWin())  
            {
-               board[i]=original_chess;
-               return i;
+               board[i]=original_chess;  
+               return i;  
            }
            else  board[i]=original_chess;
        }
     }
-    //use minimax method to decide which cell is the best of choice
-    int grades[9]={0};
-    int index[9]={0,1,2,3,4,5,6,7,8};
+    //use minimax method to decide which cell is the best choice for computer
+    int grades[9]={0};  //mark each cell with a score of choice
+    int index[9]={0,1,2,3,4,5,6,7,8};  //each cell has a one to one index and score
     for(int i=0;i<9;i++)
     {
-        if(isOccupied(i+1))  grades[i]=-1000;
+        if(isOccupied(i+1))  grades[i]=-1000;  //don't choose the occupied chess
         else grades[i]=evaluate(i,flag);
     }
 
-    BubbleSort(grades,index);
+    BubbleSort(grades,index);  //sort the intex array based on the grades
     return index[0];
 }
 
@@ -280,8 +308,7 @@ void BubbleSort(int  p[], int ind_diff[])  //ind_diff records the index of origi
 				int temp = p[j];
 				p[j] = p[j + 1];
 				p[j + 1] = temp;
- 
-				int ind_temp = ind_diff[j];
+				int ind_temp = ind_diff[j];  //also sort index array based on grades array
 				ind_diff[j] = ind_diff[j + 1];
 				ind_diff[j + 1] = ind_temp;
 			}
