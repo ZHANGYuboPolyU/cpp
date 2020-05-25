@@ -26,7 +26,7 @@
  *
  *   ZHANG Yubo 19079784d
  *   Assignment2 Tic-Tac-Toe
- *   Github: https://github.com/ZHANGYuboPolyU/cpp/blob/master/assignment2.cpph
+ *   Github: https://github.com/ZHANGYuboPolyU/cpp/blob/master/assignment2.cpp
 */
 #include <iostream>
 #include <string>
